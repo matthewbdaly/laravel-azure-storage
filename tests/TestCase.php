@@ -21,6 +21,7 @@ class TestCase extends BaseTestCase
     {
         // Setup default database to use sqlite :memory:
         $app['config']->set('filesystems.default', 'azure');
+        $app['config']->set('filesystems.cloud', 'azure');
         $app['config']->set('filesystems.disks.azure', [
             'driver'    => 'azure',
             'name'      => 'MY_AZURE_STORAGE_NAME',

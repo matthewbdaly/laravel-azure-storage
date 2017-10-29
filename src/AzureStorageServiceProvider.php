@@ -6,7 +6,7 @@ use Storage;
 use League\Flysystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Azure\AzureAdapter;
-use MicrosoftAzure\Common\ServicesBuilder;
+use MicrosoftAzure\Storage\Common\ServicesBuilder;
 
 class AzureStorageServiceProvider extends ServiceProvider
 {

@@ -8,6 +8,9 @@ use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Azure\AzureAdapter;
 use MicrosoftAzure\Storage\Common\ServicesBuilder;
 
+/**
+ * Service provider for Azure Blob Storage
+ */
 class AzureStorageServiceProvider extends ServiceProvider
 {
     /**
@@ -17,7 +20,7 @@ class AzureStorageServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Storage::extend('azure', function($app, $config) {
+        Storage::extend('azure', function ($app, $config) {
             $endpoint = sprintf(
                 'DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s',
                 $config['name'],

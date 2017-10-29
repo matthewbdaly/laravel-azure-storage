@@ -11,6 +11,12 @@ Install the package using composer:
 composer require matthewbdaly/laravel-azure-storage
 ```
 
+On Laravel versions before 5.4 you also need to add the service provider to `config/app.php` manually:
+
+```php
+    Matthewbdaly\LaravelAzureStorage\AzureStorageServiceProvider::class,
+```
+
 Then add this to the `disks` section of `config/filesystems.php`:
 
 ```php
@@ -22,4 +28,4 @@ Then add this to the `disks` section of `config/filesystems.php`:
         ],
 ```
 
-Finally, add the fields `AZURE_STORAGE_NAME`, `AZURE_STORAGE_KEY` and `AZURE_STORAGE_CONTAINER` to your `.env` file with the appropriate credentials.
+Finally, add the fields `AZURE_STORAGE_NAME`, `AZURE_STORAGE_KEY` and `AZURE_STORAGE_CONTAINER` to your `.env` file with the appropriate credentials. Then you can set the `azure` driver as either your default or cloud driver and use it to fetch and retrieve files as usual.

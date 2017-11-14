@@ -11,7 +11,7 @@ Install the package using composer:
 composer require matthewbdaly/laravel-azure-storage
 ```
 
-On Laravel versions before 5.4 you also need to add the service provider to `config/app.php` manually:
+On Laravel versions before 5.5 you also need to add the service provider to `config/app.php` manually:
 
 ```php
     Matthewbdaly\LaravelAzureStorage\AzureStorageServiceProvider::class,

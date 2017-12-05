@@ -29,3 +29,14 @@ Then add this to the `disks` section of `config/filesystems.php`:
 ```
 
 Finally, add the fields `AZURE_STORAGE_NAME`, `AZURE_STORAGE_KEY` and `AZURE_STORAGE_CONTAINER` to your `.env` file with the appropriate credentials. Then you can set the `azure` driver as either your default or cloud driver and use it to fetch and retrieve files as usual.
+
+Constructing a URL
+------------------
+
+This driver doesn't support the `Storage::get($path)` method, and adding support as a third-party package doesn't appear to be practical. However, you can construct a URL to retrieve the asset as follows:
+
+```php
+$url = 'https://' . config('filesystems.disks.azure.name'). '.blob.core.windows.net/' . config('filesystems.disks.azure.container') . '/' . $filename;
+```
+
+You may want to create a helper function for this.

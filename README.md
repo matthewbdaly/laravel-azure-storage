@@ -33,7 +33,7 @@ Finally, add the fields `AZURE_STORAGE_NAME`, `AZURE_STORAGE_KEY` and `AZURE_STO
 Constructing a URL
 ------------------
 
-This driver doesn't support the `Storage::get($path)` method, and adding support as a third-party package doesn't appear to be practical. However, you can construct a URL to retrieve the asset as follows:
+This driver doesn't support the `Storage::url($path)` method, and adding support as a third-party package doesn't appear to be practical. However, you can construct a URL to retrieve the asset as follows:
 
 ```php
 $url = 'https://' . config('filesystems.disks.azure.name'). '.blob.core.windows.net/' . config('filesystems.disks.azure.container') . '/' . $filename;

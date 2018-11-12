@@ -2,11 +2,10 @@
 
 namespace Matthewbdaly\LaravelAzureStorage;
 
-use Storage;
-use League\Flysystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
+use League\Flysystem\Filesystem;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
-use League\Flysystem\AzureBlobStorage\AzureBlobStorageAdapter;
 
 /**
  * Service provider for Azure Blob Storage

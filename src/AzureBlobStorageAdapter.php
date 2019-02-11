@@ -8,11 +8,18 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
 {
     /**
-     * Base file URL.
-     *
+     * The Azure Blob Client
+     * 
+     * @var BlobRestProxy
+     */
+    private $client;
+
+    /**
+     * The container name
+     * 
      * @var string
      */
-    protected $baseFileUrl;
+    private $container;
 
     /**
      * Create a new AzureBlobStorageAdapter instance.
@@ -24,8 +31,9 @@ class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     public function __construct(BlobRestProxy $client, $container, $prefix = null)
     {
         parent::__construct($client, $container, $prefix);
-
-        $this->baseFileUrl = $client->getPsrPrimaryUri().$container;
+        $this->client = $client;
+        $this->container = $container;
+        $this->setPathPrefix($prefix);
     }
 
     /**
@@ -34,8 +42,8 @@ class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      * @param  string  $path
      * @return string
      */
-    public function getUrl($path)
+    public function getUrl(string $path)
     {
-        return $this->baseFileUrl.'/'.$path;
+        return $this->client->getBlobUrl($this->container, $path);
     }
 }

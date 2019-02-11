@@ -24,4 +24,12 @@ class AzureBlobStorageAdapterTest extends TestCase
 
         $this->assertEquals('https://my_azure_storage_name.blob.core.windows.net/MY_AZURE_STORAGE_CONTAINER/test.txt', $storage->url('test.txt'));
     }
+
+     /** @test */
+     public function it_supports_preceding_slash()
+     {
+         $storage = $this->app['filesystem'];
+ 
+         $this->assertEquals('https://my_azure_storage_name.blob.core.windows.net/MY_AZURE_STORAGE_CONTAINER/test.txt', $storage->url('/test.txt'));
+     }
 }

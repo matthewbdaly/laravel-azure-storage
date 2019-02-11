@@ -10,7 +10,7 @@ class AzureBlobStorageAdapterTest extends TestCase
     /** @test */
     public function it_correctly_generates_the_file_url()
     {
-        $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey='.base64_encode('azure_key'));
+        $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
 
         $adapter = new AzureBlobStorageAdapter($client, 'azure_container');
 
@@ -25,11 +25,11 @@ class AzureBlobStorageAdapterTest extends TestCase
         $this->assertEquals('https://my_azure_storage_name.blob.core.windows.net/MY_AZURE_STORAGE_CONTAINER/test.txt', $storage->url('test.txt'));
     }
 
-     /** @test */
-     public function it_supports_preceding_slash()
-     {
-         $storage = $this->app['filesystem'];
- 
-         $this->assertEquals('https://my_azure_storage_name.blob.core.windows.net/MY_AZURE_STORAGE_CONTAINER/test.txt', $storage->url('/test.txt'));
-     }
+    /** @test */
+    public function it_supports_preceding_slash()
+    {
+        $storage = $this->app['filesystem'];
+
+        $this->assertEquals('https://my_azure_storage_name.blob.core.windows.net/MY_AZURE_STORAGE_CONTAINER/test.txt', $storage->url('/test.txt'));
+    }
 }

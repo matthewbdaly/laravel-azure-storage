@@ -9,14 +9,14 @@ class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
 {
     /**
      * The Azure Blob Client
-     * 
+     *
      * @var BlobRestProxy
      */
     private $client;
 
     /**
      * The container name
-     * 
+     *
      * @var string
      */
     private $container;

@@ -36,7 +36,7 @@ class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      * @param  string|null  $url
      * @param  string|null  $prefix
      */
-    public function __construct(BlobRestProxy $client, $container, $url, $prefix = null)
+    public function __construct(BlobRestProxy $client, $container, string $url = null, $prefix = null)
     {
         parent::__construct($client, $container, $prefix);
         $this->client = $client;

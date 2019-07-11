@@ -5,7 +5,10 @@ namespace Matthewbdaly\LaravelAzureStorage;
 use League\Flysystem\AzureBlobStorage\AzureBlobStorageAdapter as BaseAzureBlobStorageAdapter;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
-class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
+/**
+ * Blob storage adapter
+ */
+final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
 {
     /**
      * The Azure Blob Client
@@ -31,12 +34,12 @@ class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     /**
      * Create a new AzureBlobStorageAdapter instance.
      *
-     * @param  \MicrosoftAzure\Storage\Blob\BlobRestProxy $client
-     * @param  string                                     $container
-     * @param  string|null                                $url
-     * @param  string|null                                $prefix
+     * @param  \MicrosoftAzure\Storage\Blob\BlobRestProxy $client    Client.
+     * @param  string                                     $container Container.
+     * @param  string|null                                $url       URL.
+     * @param  string|null                                $prefix    Prefix.
      */
-    public function __construct(BlobRestProxy $client, $container, string $url = null, $prefix = null)
+    public function __construct(BlobRestProxy $client, string $container, string $url = null, $prefix = null)
     {
         parent::__construct($client, $container, $prefix);
         $this->client = $client;
@@ -48,7 +51,7 @@ class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     /**
      * Get the file URL by given path.
      *
-     * @param  string $path
+     * @param  string $path Path.
      * @return string
      */
     public function getUrl(string $path)

@@ -10,7 +10,7 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 /**
  * Service provider for Azure Blob Storage
  */
-class AzureStorageServiceProvider extends ServiceProvider
+final class AzureStorageServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

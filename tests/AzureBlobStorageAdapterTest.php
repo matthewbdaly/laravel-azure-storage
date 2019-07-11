@@ -41,4 +41,12 @@ class AzureBlobStorageAdapterTest extends TestCase
 
         $this->assertEquals('https://example.com/azure_container/test.txt', $adapter->getUrl('test.txt'));
     }
+
+    /** @test */
+    public function it_handles_invalid_custom_url()
+    {
+        $this->expectException('Matthewbdaly\LaravelAzureStorage\Exceptions\InvalidCustomUrl');
+        $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
+        $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'foo');
+    }
 }

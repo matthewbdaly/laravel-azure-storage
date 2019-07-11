@@ -4,6 +4,7 @@ namespace Matthewbdaly\LaravelAzureStorage;
 
 use League\Flysystem\AzureBlobStorage\AzureBlobStorageAdapter as BaseAzureBlobStorageAdapter;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+use Matthewbdaly\LaravelAzureStorage\Exceptions\InvalidCustomUrl;
 
 /**
  * Blob storage adapter
@@ -38,12 +39,16 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      * @param  string                                     $container Container.
      * @param  string|null                                $url       URL.
      * @param  string|null                                $prefix    Prefix.
+     * @throws InvalidCustomUrl                                      URL is not valid.
      */
     public function __construct(BlobRestProxy $client, string $container, string $url = null, $prefix = null)
     {
         parent::__construct($client, $container, $prefix);
         $this->client = $client;
         $this->container = $container;
+        if ($url && !filter_var($url, FILTER_VALIDATE_URL)) {
+            throw new InvalidCustomUrl;
+        }
         $this->url = $url;
         $this->setPathPrefix($prefix);
     }

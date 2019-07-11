@@ -8,3 +8,6 @@ before_script:
     - travis_retry composer install --no-interaction --prefer-source --dev
 
 script: vendor/bin/phpunit
+
+after_success:
+    - travis_retry php vendor/bin/php-coveralls

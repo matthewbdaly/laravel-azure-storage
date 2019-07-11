@@ -31,10 +31,10 @@ class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     /**
      * Create a new AzureBlobStorageAdapter instance.
      *
-     * @param  \MicrosoftAzure\Storage\Blob\BlobRestProxy  $client
-     * @param  string  $container
-     * @param  string|null  $url
-     * @param  string|null  $prefix
+     * @param  \MicrosoftAzure\Storage\Blob\BlobRestProxy $client
+     * @param  string                                     $container
+     * @param  string|null                                $url
+     * @param  string|null                                $prefix
      */
     public function __construct(BlobRestProxy $client, $container, string $url = null, $prefix = null)
     {
@@ -48,12 +48,12 @@ class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     /**
      * Get the file URL by given path.
      *
-     * @param  string  $path
+     * @param  string $path
      * @return string
      */
     public function getUrl(string $path)
     {
-        if($this->url) {
+        if ($this->url) {
             return rtrim($this->url, '/') . '/' . $this->container . '/' . ltrim($path, '/');
         }
         return $this->client->getBlobUrl($this->container, $path);

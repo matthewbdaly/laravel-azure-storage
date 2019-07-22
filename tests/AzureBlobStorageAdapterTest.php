@@ -58,4 +58,13 @@ class AzureBlobStorageAdapterTest extends TestCase
         $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
         $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'foo');
     }
+
+    /** @test */
+    public function it_handles_custom_prefix()
+    {
+        $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
+        $adapter = new AzureBlobStorageAdapter($client, 'azure_container', null, 'test_path');
+
+        $this->assertEquals('https://azure_account.blob.core.windows.net/azure_container/test_path/test.txt', $adapter->getUrl('test_path/test.txt'));
+    }
 }

@@ -26,7 +26,12 @@ final class AzureStorageServiceProvider extends ServiceProvider
                 $config['key']
             );
             $client = BlobRestProxy::createBlobService($endpoint);
-            $adapter = new AzureBlobStorageAdapter($client, $config['container'], $config['url'] ?? null);
+            $adapter = new AzureBlobStorageAdapter(
+                $client,
+                $config['container'],
+                $config['url'] ?? null,
+                $config['prefix'] ?? null
+            );
             return new Filesystem($adapter);
         });
     }

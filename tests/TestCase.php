@@ -27,6 +27,7 @@ class TestCase extends BaseTestCase
             'name'      => 'MY_AZURE_STORAGE_NAME',
             'key'       => base64_encode('MY_AZURE_STORAGE_KEY'),
             'container' => 'MY_AZURE_STORAGE_CONTAINER',
+            'prefix' => null,
         ]);
     }
 }

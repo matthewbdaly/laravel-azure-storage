@@ -4,7 +4,7 @@
     "type": "library",
     "keywords": ["storage","laravel","azure"],
     "require": {
-        "league/flysystem-azure-blob-storage": "^0.1.4"
+        "league/flysystem-azure-blob-storage": "^0.1.6"
     },
     "require-dev": {
         "orchestra/testbench": "^4.0",

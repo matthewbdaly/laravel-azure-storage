@@ -3,8 +3,6 @@
 	<description>Coding standard for Microsoft Azure Blob Storage integration.</description>
 	<file>src</file>
 	<arg value="np"/>
-	<rule ref="PSR2"/>
-	<rule ref="Squiz.Commenting.FunctionComment" />
-	<rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
-	<rule ref="Squiz.Commenting.ClassComment" />
+	<rule ref="PSR12"/>
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 </ruleset>

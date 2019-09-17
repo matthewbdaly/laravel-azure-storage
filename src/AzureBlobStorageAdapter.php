@@ -47,7 +47,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
         $this->client = $client;
         $this->container = $container;
         if ($url && !filter_var($url, FILTER_VALIDATE_URL)) {
-            throw new InvalidCustomUrl;
+            throw new InvalidCustomUrl();
         }
         $this->url = $url;
         $this->setPathPrefix($prefix);

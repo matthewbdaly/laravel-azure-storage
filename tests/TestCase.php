@@ -26,6 +26,7 @@ class TestCase extends BaseTestCase
             'driver'    => 'azure',
             'name'      => 'MY_AZURE_STORAGE_NAME',
             'key'       => base64_encode('MY_AZURE_STORAGE_KEY'),
+            'endpoint'  => null,
             'container' => 'MY_AZURE_STORAGE_CONTAINER',
             'prefix' => null,
         ]);

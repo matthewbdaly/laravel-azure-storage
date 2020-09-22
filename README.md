@@ -35,6 +35,24 @@ Finally, add the fields `AZURE_STORAGE_NAME`, `AZURE_STORAGE_KEY`, `AZURE_STORAG
 
 For details on how to use this driver, refer to the [Laravel documentation on the file storage API](https://laravel.com/docs/7.x/filesystem).
 
+# Custom endpoints
+
+The package supports using a custom endpoint, as in this example:
+
+```php
+        'azure' => [
+            'driver'    => 'azure',
+            'name'      => env('AZURE_STORAGE_NAME'),
+            'key'       => env('AZURE_STORAGE_KEY'),
+            'container' => env('AZURE_STORAGE_CONTAINER'),
+            'url'       => env('AZURE_STORAGE_URL'),
+            'prefix'    => null,
+            'endpoint'  => env('AZURE_STORAGE_ENDPOINT'),
+        ],
+```
+
+Then you can specify a suitable value for `AZURE_STORAGE_ENDPOINT` in your `.env` file as normal.
+
 # Support policy
 
 This package is supported on the current Laravel LTS version, and any later versions. If you are using an older Laravel version, it may work, but I offer no guarantees, nor will I accept pull requests to add this support.

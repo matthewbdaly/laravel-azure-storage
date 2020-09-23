@@ -25,7 +25,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
                 $config['name'],
                 $config['key']
             );
-            if ($config['endpoint'] !== null) {
+            if (isset($config['endpoint'])) {
                 $endpoint .= sprintf("BlobEndpoint=%s;", $config['endpoint']);
             }
             $client = BlobRestProxy::createBlobService($endpoint);

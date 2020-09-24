@@ -5,7 +5,7 @@ namespace Tests;
 use Matthewbdaly\LaravelAzureStorage\AzureBlobStorageAdapter;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
-class AzureBlobStorageAdapterTest extends TestCase
+final class AzureBlobStorageAdapterTest extends TestCase
 {
     /** @test */
     public function it_correctly_generates_the_file_url()

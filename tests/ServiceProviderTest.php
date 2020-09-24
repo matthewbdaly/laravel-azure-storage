@@ -4,7 +4,7 @@ namespace Tests;
 
 use Illuminate\Support\Facades\Storage;
 
-class ServiceProviderTest extends TestCase
+final class ServiceProviderTest extends TestCase
 {
     /** @test */
     public function it_sets_up_the_storage_correctly()

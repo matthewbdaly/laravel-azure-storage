@@ -32,6 +32,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
             $adapter = new AzureBlobStorageAdapter(
                 $client,
                 $config['container'],
+                $config['key'],
                 $config['url'] ?? null,
                 $config['prefix'] ?? null
             );

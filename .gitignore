@@ -5,3 +5,4 @@ composer.lock
 build/
 infection-log.txt
 /.idea
+.phpunit.result.cache

@@ -11,6 +11,8 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
  * Blob storage adapter
+ *
+ * @internal
  */
 final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
 {

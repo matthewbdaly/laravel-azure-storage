@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Support\Facades\Storage;
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
 final class ServiceProviderTest extends TestCase
 {
@@ -45,5 +46,15 @@ final class ServiceProviderTest extends TestCase
         $this->app['config']->set('filesystems.disks.azure.url', $customUrl);
 
         $this->assertEquals("$customUrl/$container/a.txt", Storage::url('a.txt'));
+    }
+
+    /** @test */
+    public function it_resolves_the_azure_client()
+    {
+        $this->assertTrue($this->app->bound(BlobRestProxy::class));
+
+        Storage::disk();
+
+        $this->assertTrue($this->app->resolved(BlobRestProxy::class));
     }
 }

@@ -54,7 +54,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      * @param string|null $prefix Prefix.
      * @throws InvalidCustomUrl URL is not valid.
      */
-    public function __construct(BlobRestProxy $client, string $container, string $key, string $url = null, $prefix = null)
+    public function __construct(BlobRestProxy $client, string $container, string $key = null, string $url = null, $prefix = null)
     {
         parent::__construct($client, $container, $prefix);
         $this->client = $client;

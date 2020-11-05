@@ -55,6 +55,19 @@ The package supports using a custom endpoint, as in this example:
 
 Then you can specify a suitable value for `AZURE_STORAGE_ENDPOINT` in your `.env` file as normal.
 
+# SAS token authentication
+With SAS token authentication the endpoint is required. The value has the following format: `https://[accountName].blob.core.windows.net`
+```php
+        'azure' => [
+            'driver'    => 'azure',
+            'sasToken'  => env('AZURE_STORAGE_SAS_TOKEN'),
+            'container' => env('AZURE_STORAGE_CONTAINER'),
+            'url'       => env('AZURE_STORAGE_URL'),
+            'prefix'    => null,
+            'endpoint'  => env('AZURE_STORAGE_ENDPOINT'),
+        ],
+```
+
 # Support policy
 
 This package is supported on the current Laravel LTS version, and any later versions. If you are using an older Laravel version, it may work, but I offer no guarantees, nor will I accept pull requests to add this support.

@@ -4,7 +4,7 @@
 
 Microsoft Azure Blob Storage integration for Laravel's Storage API.
 
-This is a custom driver for [Laravel's File Storage API](https://laravel.com/docs/8.x/filesystem), which is itself built on top of [Flysystem](https://flysystem.thephpleague.com/v1/docs/). It uses Flysystem's own Azure blob storage adapter, and so can't easily add any more functionality than that has, and indeed adding that would be out of scope for the project.
+This is a custom driver for [Laravel's File Storage API](https://laravel.com/docs/8.x/filesystem), which is itself built on top of [Flysystem](https://flysystem.thephpleague.com/v1/docs/). It uses Flysystem's own Azure blob storage adapter, and so can't easily add any more functionality than that has - indeed, adding that would be out of scope for the project.
 
 # Installation
 

@@ -93,7 +93,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     {
         $sas = new BlobSharedAccessSignatureHelper($this->client->getAccountName(), $this->key);
         $sasString = $sas->generateBlobServiceSharedAccessSignatureToken(
-            Resources::RESOURCE_TYPE_BLOB,
+            Arr::get($options, 'signed_resource', 'b'),
             $this->container . '/' . $path,
             Arr::get($options, 'signed_permissions', 'r'),
             $ttl,

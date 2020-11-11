@@ -91,10 +91,11 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      */
     public function getTemporaryUrl(string $path, $ttl, array $options = [])
     {
+        $resourceName = (empty($path) ? $this->container : $this->container  . '/' . $path);
         $sas = new BlobSharedAccessSignatureHelper($this->client->getAccountName(), $this->key);
         $sasString = $sas->generateBlobServiceSharedAccessSignatureToken(
-            Resources::RESOURCE_TYPE_BLOB,
-            $this->container . '/' . $path,
+            Arr::get($options, 'signed_resource', 'b'),
+            $resourceName,
             Arr::get($options, 'signed_permissions', 'r'),
             $ttl,
             Arr::get($options, 'signed_start', ''),

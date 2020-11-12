@@ -2,9 +2,13 @@
 
 namespace Matthewbdaly\LaravelAzureStorage;
 
+use Illuminate\Filesystem\Cache;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
+use League\Flysystem\Cached\CachedAdapter;
+use League\Flysystem\Cached\Storage\Memory as MemoryStore;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
 /**
@@ -28,6 +32,12 @@ final class AzureStorageServiceProvider extends ServiceProvider
                 $config['url'] ?? null,
                 $config['prefix'] ?? null
             );
+
+            $cache = Arr::pull($config, 'cache');
+            if ($cache) {
+                $adapter = new CachedAdapter($adapter, $this->createCacheStore($cache));
+            }
+
             return new Filesystem($adapter, $config);
         });
     }
@@ -61,5 +71,26 @@ final class AzureStorageServiceProvider extends ServiceProvider
 
             return BlobRestProxy::createBlobService($endpoint);
         });
+    }
+
+    /**
+     * Create a cache store instance.
+     *
+     * @param  mixed  $config
+     * @return \League\Flysystem\Cached\CacheInterface
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function createCacheStore($config)
+    {
+        if ($config === true) {
+            return new MemoryStore;
+        }
+
+        return new Cache(
+            $this->app['cache']->store($config['store']),
+            $config['prefix'] ?? 'flysystem',
+            $config['expire'] ?? null
+        );
     }
 }

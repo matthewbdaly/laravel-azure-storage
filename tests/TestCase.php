@@ -28,7 +28,12 @@ abstract class TestCase extends BaseTestCase
             'key'       => base64_encode('MY_AZURE_STORAGE_KEY'),
             'endpoint'  => null,
             'container' => 'MY_AZURE_STORAGE_CONTAINER',
-            'prefix' => null,
+            'prefix'    => null,
+            'cache' => [
+                'store' => 'file',
+                'expire' => 60,
+                'prefix' => 'filecache',
+            ],
         ]);
     }
 }

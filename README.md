@@ -68,6 +68,21 @@ With SAS token authentication the endpoint is required. The value has the follow
         ],
 ```
 
+# Caching
+The package supports disk based caching as described in the [Laravel documentation](https://laravel.com/docs/filesystem#caching).
+To enable caching for the azure disk, add a cache directive to the disk's configuration options.
+```php
+        'azure' => [
+            'driver'    => 'azure',
+            // Other Disk Options...
+            'cache'     => [
+                'store' => 'memcached',
+                'expire' => 600,
+                'prefix' => 'filecache',
+            ]
+        ],
+```
+
 # Support policy
 
 This package is supported on the current Laravel LTS version, and any later versions. If you are using an older Laravel version, it may work, but I offer no guarantees, nor will I accept pull requests to add this support.

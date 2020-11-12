@@ -22,8 +22,19 @@ final class ServiceProviderTest extends TestCase
         $settings = $this->app['config']->get('filesystems.disks.azure');
 
         foreach ($settings as $key => $value) {
+            if ($key === 'cache') {
+                continue;
+            }
+
             $this->assertEquals($value, $storage->getConfig()->get($key));
         }
+    }
+
+    /** @test */
+    public function it_sets_up_the_cache_adapter_correctly()
+    {
+        $adapter = Storage::getDriver()->getAdapter();
+        $this->assertEquals(\League\Flysystem\Cached\CachedAdapter::class, get_class($adapter));
     }
 
     /** @test */

@@ -24,7 +24,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
             $adapter = new AzureBlobStorageAdapter(
                 $client,
                 $config['container'],
-                $config['key']?? null,
+                $config['key'] ?? null,
                 $config['url'] ?? null,
                 $config['prefix'] ?? null
             );
@@ -42,15 +42,13 @@ final class AzureStorageServiceProvider extends ServiceProvider
         $this->app->bind(BlobRestProxy::class, function ($app, $config) {
             $config = empty($config) ? $app->make('config')->get('filesystems.disks.azure') : $config;
 
-            if(array_key_exists('sasToken', $config)) {
-
+            if (array_key_exists('sasToken', $config)) {
                 $endpoint = sprintf(
                     'BlobEndpoint=%s;SharedAccessSignature=%s;',
                     $config['endpoint'],
                     $config['sasToken']
                 );
-            }else{
-
+            } else {
                 $endpoint = sprintf(
                     'DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s;',
                     $config['name'],

@@ -22,8 +22,19 @@ final class ServiceProviderTest extends TestCase
         $settings = $this->app['config']->get('filesystems.disks.azure');
 
         foreach ($settings as $key => $value) {
+            if ($key === 'cache') {
+                continue;
+            }
+
             $this->assertEquals($value, $storage->getConfig()->get($key));
         }
+    }
+
+    /** @test */
+    public function it_sets_up_the_cache_adapter_correctly()
+    {
+        $adapter = Storage::getDriver()->getAdapter();
+        $this->assertEquals(\League\Flysystem\Cached\CachedAdapter::class, get_class($adapter));
     }
 
     /** @test */
@@ -54,6 +65,20 @@ final class ServiceProviderTest extends TestCase
         $this->assertTrue($this->app->bound(BlobRestProxy::class));
 
         Storage::disk();
+
+        $this->assertTrue($this->app->resolved(BlobRestProxy::class));
+    }
+
+    /** @test */
+    public function it_sets_up_the_retry_middleware()
+    {
+        $this->app['config']->set('filesystems.disks.azure.retry', [
+            'tries' => 3,
+            'interval' => 500,
+            'increase' => 'exponential'
+        ]);
+
+        $this->assertNotNull($this->app->get(BlobRestProxy::class));
 
         $this->assertTrue($this->app->resolved(BlobRestProxy::class));
     }

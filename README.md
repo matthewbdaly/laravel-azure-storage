@@ -68,6 +68,41 @@ With SAS token authentication the endpoint is required. The value has the follow
         ],
 ```
 
+# Caching
+The package supports disk based caching as described in the [Laravel documentation](https://laravel.com/docs/filesystem#caching).
+This feature requires adding the package `league/flysystem-cached-adapter`:
+```bash
+composer require league/flysystem-cached-adapter:^1.1
+```
+
+To enable caching for the azure disk, add a `cache` directive to the disk's configuration options.
+```php
+        'azure' => [
+            'driver'    => 'azure',
+            // Other Disk Options...
+            'cache'     => [
+                'store' => 'memcached',
+                'expire' => 600,
+                'prefix' => 'filecache',
+            ]
+        ],
+```
+
+# Retries
+The Azure Storage SDK ships a [middleware to retry](https://github.com/Azure/azure-storage-php#retrying-failures) failed requests.
+To enable the retry middewalre, add a `retry` directive to the disk's configuration options.
+```php
+        'azure' => [
+            'driver'    => 'azure',
+            // Other Disk Options...
+            'retry'     => [
+                'tries' => 3,                   // number of retries, default: 3
+                'interval' => 500,              // wait interval in ms, default: 1000ms
+                'increase' => 'exponential'     // how to increase the wait interval, options: linear, exponential, default: linear
+            ]
+        ],
+```
+
 # Support policy
 
 This package is supported on the current Laravel LTS version, and any later versions. If you are using an older Laravel version, it may work, but I offer no guarantees, nor will I accept pull requests to add this support.

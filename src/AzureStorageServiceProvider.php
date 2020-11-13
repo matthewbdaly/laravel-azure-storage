@@ -13,6 +13,9 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 
+use RuntimeException;
+use Throwable;
+
 /**
  * Service provider for Azure Blob Storage
  */
@@ -37,6 +40,12 @@ final class AzureStorageServiceProvider extends ServiceProvider
 
             $cache = Arr::pull($config, 'cache');
             if ($cache) {
+                try {
+                    class_exists(CachedAdapter::class);
+                } catch (Throwable $e) {
+                    throw new RuntimeException("Caching requires the league/flysystem-cached-adapter to be installed.");
+                }
+
                 $adapter = new CachedAdapter($adapter, $this->createCacheStore($cache));
             }
 

@@ -4,8 +4,7 @@
     "type": "library",
     "keywords": ["storage","laravel","azure"],
     "require": {
-        "league/flysystem-azure-blob-storage": "^0.1.6",
-        "league/flysystem-cached-adapter": "^1.1"
+        "league/flysystem-azure-blob-storage": "^0.1.6"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
@@ -14,7 +13,11 @@
         "php-coveralls/php-coveralls": "^2.1",
         "psy/psysh": "^0.9.9",
         "squizlabs/php_codesniffer": "^3.4",
-        "vimeo/psalm": "^3.16"
+        "vimeo/psalm": "^3.16",
+        "league/flysystem-cached-adapter": "^1.1"
+    },
+    "suggest": {
+        "league/flysystem-cached-adapter": "^1.1"
     },
     "license": "MIT",
     "authors": [

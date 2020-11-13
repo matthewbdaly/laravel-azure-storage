@@ -70,6 +70,11 @@ With SAS token authentication the endpoint is required. The value has the follow
 
 # Caching
 The package supports disk based caching as described in the [Laravel documentation](https://laravel.com/docs/filesystem#caching).
+This feature requires adding the package `league/flysystem-cached-adapter`:
+```bash
+composer require league/flysystem-cached-adapter:^1.1
+```
+
 To enable caching for the azure disk, add a `cache` directive to the disk's configuration options.
 ```php
         'azure' => [
@@ -91,9 +96,9 @@ To enable the retry middewalre, add a `retry` directive to the disk's configurat
             'driver'    => 'azure',
             // Other Disk Options...
             'retry'     => [
-                'tries' => 3,                   // number of retries
-                'interval' => 500,              // wait interval in ms
-                'increase' => 'exponential'     // how to increase the wait interval, options: linear, exponential
+                'tries' => 3,                   // number of retries, default: 3
+                'interval' => 500,              // wait interval in ms, default: 1000ms
+                'increase' => 'exponential'     // how to increase the wait interval, options: linear, exponential, default: linear
             ]
         ],
 ```

@@ -70,7 +70,7 @@ With SAS token authentication the endpoint is required. The value has the follow
 
 # Caching
 The package supports disk based caching as described in the [Laravel documentation](https://laravel.com/docs/filesystem#caching).
-To enable caching for the azure disk, add a cache directive to the disk's configuration options.
+To enable caching for the azure disk, add a `cache` directive to the disk's configuration options.
 ```php
         'azure' => [
             'driver'    => 'azure',
@@ -79,6 +79,21 @@ To enable caching for the azure disk, add a cache directive to the disk's config
                 'store' => 'memcached',
                 'expire' => 600,
                 'prefix' => 'filecache',
+            ]
+        ],
+```
+
+# Retries
+The Azure Storage SDK ships a [middleware to retry](https://github.com/Azure/azure-storage-php#retrying-failures) failed requests.
+To enable the retry middewalre, add a `retry` directive to the disk's configuration options.
+```php
+        'azure' => [
+            'driver'    => 'azure',
+            // Other Disk Options...
+            'retry'     => [
+                'tries' => 3,                   // number of retries
+                'interval' => 500,              // wait interval in ms
+                'increase' => 'exponential'     // how to increase the wait interval, options: linear, exponential
             ]
         ],
 ```

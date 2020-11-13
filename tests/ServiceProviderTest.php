@@ -68,4 +68,18 @@ final class ServiceProviderTest extends TestCase
 
         $this->assertTrue($this->app->resolved(BlobRestProxy::class));
     }
+
+    /** @test */
+    public function it_sets_up_the_retry_middleware()
+    {
+        $this->app['config']->set('filesystems.disks.azure.retry', [
+            'tries' => 3,
+            'interval' => 500,
+            'increase' => 'exponential'
+        ]);
+
+        $this->assertNotNull($this->app->get(BlobRestProxy::class));
+
+        $this->assertTrue($this->app->resolved(BlobRestProxy::class));
+    }
 }

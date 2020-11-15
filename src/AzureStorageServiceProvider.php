@@ -12,7 +12,6 @@ use League\Flysystem\Cached\Storage\Memory as MemoryStore;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
-
 use RuntimeException;
 use Throwable;
 
@@ -105,7 +104,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
     protected function createCacheStore($config)
     {
         if ($config === true) {
-            return new MemoryStore;
+            return new MemoryStore();
         }
 
         return new Cache(

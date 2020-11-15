@@ -10,11 +10,10 @@ use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Cached\CachedAdapter;
 use League\Flysystem\Cached\Storage\Memory as MemoryStore;
+use Matthewbdaly\LaravelAzureStorage\Exceptions\CacheAdapterNotInstalled;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
-use RuntimeException;
-use Throwable;
 
 /**
  * Service provider for Azure Blob Storage
@@ -38,12 +37,9 @@ final class AzureStorageServiceProvider extends ServiceProvider
                 $config['prefix'] ?? null
             );
 
-            $cache = Arr::pull($config, 'cache');
-            if ($cache) {
-                try {
-                    class_exists(CachedAdapter::class);
-                } catch (Throwable $e) {
-                    throw new RuntimeException("Caching requires the league/flysystem-cached-adapter to be installed.");
+            if ($cache = Arr::pull($config, 'cache')) {
+                if (!class_exists(CachedAdapter::class)) {
+                    throw new CacheAdapterNotInstalled("Caching requires the league/flysystem-cached-adapter to be installed.");
                 }
 
                 $adapter = new CachedAdapter($adapter, $this->createCacheStore($cache));

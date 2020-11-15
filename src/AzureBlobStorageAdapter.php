@@ -4,8 +4,8 @@ namespace Matthewbdaly\LaravelAzureStorage;
 
 use Illuminate\Support\Arr;
 use League\Flysystem\AzureBlobStorage\AzureBlobStorageAdapter as BaseAzureBlobStorageAdapter;
-use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use Matthewbdaly\LaravelAzureStorage\Exceptions\InvalidCustomUrl;
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\BlobSharedAccessSignatureHelper;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
@@ -33,14 +33,14 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     /**
      * Custom url for getUrl()
      *
-     * @var string
+     * @var string|null
      */
     private $url;
 
     /**
      * The account key to access the storage
      *
-     * @var string
+     * @var string|null
      */
     private $key;
 
@@ -71,6 +71,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      * Get the file URL by given path.
      *
      * @param  string $path Path.
+     *
      * @return string
      */
     public function getUrl(string $path)
@@ -87,6 +88,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      * @param string $path
      * @param \Datetime|string $ttl
      * @param array $options
+     *
      * @return string
      */
     public function getTemporaryUrl(string $path, $ttl, array $options = [])

@@ -7,9 +7,10 @@ use Illuminate\Filesystem\Cache;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
-use League\Flysystem\Filesystem;
+use League\Flysystem\Cached\CacheInterface;
 use League\Flysystem\Cached\CachedAdapter;
 use League\Flysystem\Cached\Storage\Memory as MemoryStore;
+use League\Flysystem\Filesystem;
 use Matthewbdaly\LaravelAzureStorage\Exceptions\CacheAdapterNotInstalled;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware;
@@ -94,11 +95,12 @@ final class AzureStorageServiceProvider extends ServiceProvider
      * Create a cache store instance.
      *
      * @param  mixed  $config
+     *
      * @return \League\Flysystem\Cached\CacheInterface
      *
      * @throws \InvalidArgumentException
      */
-    protected function createCacheStore($config)
+    protected function createCacheStore($config): CacheInterface
     {
         if ($config === true) {
             return new MemoryStore();
@@ -115,9 +117,10 @@ final class AzureStorageServiceProvider extends ServiceProvider
      * Create retry middleware instance.
      *
      * @param  array $config
+     *
      * @return RetryMiddleware
      */
-    protected function createRetryMiddleware($config)
+    protected function createRetryMiddleware(array $config): RetryMiddleware
     {
         return RetryMiddlewareFactory::create(
             RetryMiddlewareFactory::GENERAL_RETRY_TYPE,

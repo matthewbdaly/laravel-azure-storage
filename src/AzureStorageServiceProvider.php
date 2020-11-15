@@ -2,6 +2,7 @@
 
 namespace Matthewbdaly\LaravelAzureStorage;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Filesystem\Cache;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -27,7 +28,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Storage::extend('azure', function ($app, $config) {
+        Storage::extend('azure', function (Application $app, array $config) {
             $client = $app->make(BlobRestProxy::class, $config);
             $adapter = new AzureBlobStorageAdapter(
                 $client,
@@ -59,7 +60,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(BlobRestProxy::class, function ($app, $config) {
+        $this->app->bind(BlobRestProxy::class, function (Application $app, array $config) {
             $config = empty($config) ? $app->make('config')->get('filesystems.disks.azure') : $config;
 
             if (array_key_exists('sasToken', $config)) {

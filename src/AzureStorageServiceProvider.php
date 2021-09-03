@@ -35,7 +35,8 @@ final class AzureStorageServiceProvider extends ServiceProvider
                 $config['container'],
                 $config['key'] ?? null,
                 $config['url'] ?? null,
-                $config['prefix'] ?? null
+                $config['prefix'] ?? null,
+                $config['root_url'] ?? null
             );
 
             if ($cache = Arr::pull($config, 'cache')) {

@@ -54,7 +54,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      * @param string|null $prefix Prefix.
      * @throws InvalidCustomUrl URL is not valid.
      */
-    public function __construct(BlobRestProxy $client, string $container, string $key = null, string $url = null, $prefix = null)
+    public function __construct(BlobRestProxy $client, string $container, string $key = null, string $url = null, $prefix = null, $root_url = null)
     {
         parent::__construct($client, $container, $prefix);
         $this->client = $client;
@@ -64,6 +64,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
         }
         $this->url = $url;
         $this->key = $key;
+        $this->root_url = $root_url;
         $this->setPathPrefix($prefix);
     }
 
@@ -79,6 +80,13 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
         if ($this->url) {
             return rtrim($this->url, '/') . '/' . ($this->container === '$root' ? '' : $this->container . '/') . ltrim($path, '/');
         }
+
+        // allows the developer to
+        // have full control over the root path
+        if ($this->root_url) {
+            return rtrim($this->root_url, '/') . '/' . ltrim($path, '/');
+        }
+
         return $this->client->getBlobUrl($this->container, $path);
     }
 

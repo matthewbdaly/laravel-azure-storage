@@ -30,6 +30,7 @@ Then add this to the `disks` section of `config/filesystems.php`:
             'container' => env('AZURE_STORAGE_CONTAINER'),
             'url'       => env('AZURE_STORAGE_URL'),
             'prefix'    => null,
+            'connection_string' => env('AZURE_STORAGE_CONNECTION_STRING') // optional, will override default endpoint builder 
         ],
 ```
 
@@ -49,6 +50,7 @@ The package supports using a custom endpoint, as in this example:
             'container' => env('AZURE_STORAGE_CONTAINER'),
             'url'       => env('AZURE_STORAGE_URL'),
             'prefix'    => null,
+            'connection_string' => null,
             'endpoint'  => env('AZURE_STORAGE_ENDPOINT'),
         ],
 ```

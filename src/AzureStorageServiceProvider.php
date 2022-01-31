@@ -60,22 +60,12 @@ final class AzureStorageServiceProvider extends ServiceProvider
         $this->app->bind(BlobRestProxy::class, function (Container $app, array $config) {
             $config = empty($config) ? $app->make('config')->get('filesystems.disks.azure') : $config;
 
-            if (array_key_exists('sasToken', $config)) {
-                $endpoint = sprintf(
-                    'BlobEndpoint=%s;SharedAccessSignature=%s;',
-                    $config['endpoint'],
-                    $config['sasToken']
-                );
+            if (!empty($config['connection_string'])) {
+                $endpoint = $config['connection_string'];
             } else {
-                $endpoint = sprintf(
-                    'DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s;',
-                    $config['name'],
-                    $config['key']
-                );
-                if (isset($config['endpoint'])) {
-                    $endpoint .= sprintf("BlobEndpoint=%s;", $config['endpoint']);
-                }
+                $endpoint = $this->createConnectionString($config);
             }
+
 
             $blobOptions = [];
             $retry = data_get($config, 'retry');
@@ -131,5 +121,26 @@ final class AzureStorageServiceProvider extends ServiceProvider
                 RetryMiddlewareFactory::LINEAR_INTERVAL_ACCUMULATION,
             true  // Whether to retry connection failures too, default false
         );
+    }
+
+    protected function createConnectionString(array $config): string {
+        if (array_key_exists('sasToken', $config)) {
+            $endpoint = sprintf(
+                'BlobEndpoint=%s;SharedAccessSignature=%s;',
+                $config['endpoint'],
+                $config['sasToken']
+            );
+        } else {
+            $endpoint = sprintf(
+                'DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s;',
+                $config['name'],
+                $config['key']
+            );
+            if (isset($config['endpoint'])) {
+                $endpoint .= sprintf("BlobEndpoint=%s;", $config['endpoint']);
+            }
+        }
+
+        return $endpoint;
     }
 }

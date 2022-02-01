@@ -123,7 +123,8 @@ final class AzureStorageServiceProvider extends ServiceProvider
         );
     }
 
-    protected function createConnectionString(array $config): string {
+    protected function createConnectionString(array $config): string
+    {
         if (array_key_exists('sasToken', $config)) {
             $endpoint = sprintf(
                 'BlobEndpoint=%s;SharedAccessSignature=%s;',

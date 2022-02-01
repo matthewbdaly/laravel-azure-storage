@@ -7,14 +7,14 @@
         "league/flysystem-azure-blob-storage": "^1.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.0",
-        "phpunit/phpunit": "^9.3",
+        "league/flysystem-cached-adapter": "^1.1",
         "mockery/mockery": "^1.0",
+        "orchestra/testbench": "^6.0",
         "php-coveralls/php-coveralls": "^2.1",
+        "phpunit/phpunit": "^9.3",
         "psy/psysh": "^0.9.9",
         "squizlabs/php_codesniffer": "^3.4",
-        "vimeo/psalm": "^3.16",
-        "league/flysystem-cached-adapter": "^1.1"
+        "vimeo/psalm": "^4.19"
     },
     "suggest": {
         "league/flysystem-cached-adapter": "^1.1"

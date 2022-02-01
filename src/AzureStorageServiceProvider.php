@@ -126,20 +126,19 @@ final class AzureStorageServiceProvider extends ServiceProvider
     protected function createConnectionString(array $config): string
     {
         if (array_key_exists('sasToken', $config)) {
-            $endpoint = sprintf(
+            return sprintf(
                 'BlobEndpoint=%s;SharedAccessSignature=%s;',
                 $config['endpoint'],
                 $config['sasToken']
             );
-        } else {
-            $endpoint = sprintf(
-                'DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s;',
-                $config['name'],
-                $config['key']
-            );
-            if (isset($config['endpoint'])) {
-                $endpoint .= sprintf("BlobEndpoint=%s;", $config['endpoint']);
-            }
+        }
+        $endpoint = sprintf(
+            'DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s;',
+            $config['name'],
+            $config['key']
+        );
+        if (isset($config['endpoint'])) {
+            $endpoint .= sprintf("BlobEndpoint=%s;", $config['endpoint']);
         }
 
         return $endpoint;

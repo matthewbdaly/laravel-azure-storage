@@ -4,7 +4,7 @@
 
 Microsoft Azure Blob Storage integration for Laravel's Storage API.
 
-This is a custom driver for [Laravel's File Storage API](https://laravel.com/docs/8.x/filesystem), which is itself built on top of [Flysystem](https://flysystem.thephpleague.com/v1/docs/). It uses Flysystem's own Azure blob storage adapter, and so can't easily add any more functionality than that has - indeed, adding that would be out of scope for the project.
+This is a custom driver for [Laravel's File Storage API](https://laravel.com/docs/9.x/filesystem), which is itself built on top of [Flysystem 3](https://flysystem.thephpleague.com/docs/). It uses Flysystem's own Azure blob storage adapter, and so can't easily add any more functionality than that has - indeed, adding that would be out of scope for the project.
 
 # Installation
 
@@ -12,12 +12,6 @@ Install the package using composer:
 
 ```bash
 composer require matthewbdaly/laravel-azure-storage
-```
-
-On Laravel versions before 5.5 you also need to add the service provider to `config/app.php` manually:
-
-```php
-    Matthewbdaly\LaravelAzureStorage\AzureStorageServiceProvider::class,
 ```
 
 Then add this to the `disks` section of `config/filesystems.php`:
@@ -36,7 +30,7 @@ Then add this to the `disks` section of `config/filesystems.php`:
 
 Finally, add the fields `AZURE_STORAGE_NAME`, `AZURE_STORAGE_KEY`, `AZURE_STORAGE_CONTAINER` and `AZURE_STORAGE_URL` to your `.env` file with the appropriate credentials. The `AZURE_STORAGE_URL` field is optional, this allows you to set a custom URL to be returned from `Storage::url()`, if using the `$root` container the URL will be returned without the container path. A `prefix` can be optionally used. If it's not set, the container root is used. Then you can set the `azure` driver as either your default or cloud driver and use it to fetch and retrieve files as usual.
 
-For details on how to use this driver, refer to the [Laravel documentation on the file storage API](https://laravel.com/docs/filesystem).
+For details on how to use this driver, refer to the [Laravel documentation on the file storage API](https://laravel.com/docs/9.x/filesystem).
 
 # Custom endpoints
 
@@ -67,26 +61,6 @@ With SAS token authentication the endpoint is required. The value has the follow
             'url'       => env('AZURE_STORAGE_URL'),
             'prefix'    => null,
             'endpoint'  => env('AZURE_STORAGE_ENDPOINT'),
-        ],
-```
-
-# Caching
-The package supports disk based caching as described in the [Laravel documentation](https://laravel.com/docs/filesystem#caching).
-This feature requires adding the package `league/flysystem-cached-adapter`:
-```bash
-composer require league/flysystem-cached-adapter:^1.1
-```
-
-To enable caching for the azure disk, add a `cache` directive to the disk's configuration options.
-```php
-        'azure' => [
-            'driver'    => 'azure',
-            // Other Disk Options...
-            'cache'     => [
-                'store' => 'memcached',
-                'expire' => 600,
-                'prefix' => 'filecache',
-            ]
         ],
 ```
 

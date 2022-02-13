@@ -9,7 +9,7 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 final class ServiceProviderTest extends TestCase
 {
     /** @test */
-    public function it_sets_up_the_storage_correctly()
+    public function it_sets_up_the_storage_correctly(): void
     {
         $storage = $this->app['filesystem'];
         $this->assertEquals('azure', $storage->getDefaultDriver());
@@ -17,28 +17,27 @@ final class ServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_sets_up_the_config_correctly()
+    public function it_sets_up_the_config_correctly(): void
     {
         $storage = $this->app['filesystem'];
 
         $settings = $this->app['config']->get('filesystems.disks.azure');
 
         foreach ($settings as $key => $value) {
-
             $this->assertEquals($value, Arr::get($storage->getConfig(), $key));
         }
     }
 
-//    /** @test */
-      // skip this test cause it's no longer valid
-//    public function it_sets_up_the_cache_adapter_correctly()
-//    {
-//        $adapter = Storage::getDriver()->getAdapter();
-//        $this->assertEquals(\League\Flysystem\Cached\CachedAdapter::class, get_class($adapter));
-//    }
+    /** @test */
+    public function it_sets_up_the_cache_adapter_correctly(): void
+    {
+        $this->markTestSkipped();
+        $adapter = Storage::getDriver()->getAdapter();
+        $this->assertEquals(\League\Flysystem\Cached\CachedAdapter::class, get_class($adapter));
+    }
 
     /** @test */
-    public function it_handles_custom_blob_endpoint()
+    public function it_handles_custom_blob_endpoint(): void
     {
         $endpoint = 'http://custom';
         $container = $this->app['config']->get('filesystems.disks.azure.container');
@@ -48,7 +47,7 @@ final class ServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function custom_url_overrides_endpoint()
+    public function custom_url_overrides_endpoint(): void
     {
         $endpoint = 'http://custom';
         $customUrl = 'http://cdn.com';
@@ -60,7 +59,7 @@ final class ServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_resolves_the_azure_client()
+    public function it_resolves_the_azure_client(): void
     {
         $this->assertTrue($this->app->bound(BlobRestProxy::class));
 
@@ -70,7 +69,7 @@ final class ServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_sets_up_the_retry_middleware()
+    public function it_sets_up_the_retry_middleware(): void
     {
         $this->app['config']->set('filesystems.disks.azure.retry', [
             'tries' => 3,

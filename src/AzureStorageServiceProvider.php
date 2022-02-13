@@ -13,6 +13,13 @@ use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 
 /**
  * Service provider for Azure Blob Storage
+ *
+ * @psalm-type ProviderConfig = array{
+ *  endpoint: string|null,
+ *  sasToken: string|null,
+ *  name: string,
+ *  key: string
+ * }
  */
 final class AzureStorageServiceProvider extends ServiceProvider
 {
@@ -94,6 +101,11 @@ final class AzureStorageServiceProvider extends ServiceProvider
         );
     }
 
+    /**
+     * Create connection string
+     *
+     * @psalm-param ProviderConfig $config
+     */
     protected function createConnectionString(array $config): string
     {
         if (array_key_exists('sasToken', $config)) {

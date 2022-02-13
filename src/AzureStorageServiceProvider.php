@@ -24,7 +24,10 @@ use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
  *  endpoint: string|null,
  *  sasToken: string|null,
  *  name: string,
- *  key: string,
+ *  container: string,
+ *  key: string|null,
+ *  url: string|null,
+ *  prefix: string|null,
  *  retry: ProviderRetryConfig
  * }
  */

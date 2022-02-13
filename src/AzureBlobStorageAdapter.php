@@ -7,7 +7,6 @@ use League\Flysystem\AzureBlobStorage\AzureBlobStorageAdapter as BaseAzureBlobSt
 use Matthewbdaly\LaravelAzureStorage\Exceptions\InvalidCustomUrl;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\BlobSharedAccessSignatureHelper;
-use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
  * Blob storage adapter
@@ -51,11 +50,16 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      * @param string $container Container.
      * @param string $key
      * @param string|null $url URL.
-     * @param string|null $prefix Prefix.
+     * @param string $prefix Prefix.
      * @throws InvalidCustomUrl URL is not valid.
      */
-    public function __construct(BlobRestProxy $client, string $container, string $key = null, string $url = null, $prefix = null)
-    {
+    public function __construct(
+        BlobRestProxy $client,
+        string $container,
+        string $key = null,
+        string $url = null,
+        $prefix = ''
+    ) {
         parent::__construct($client, $container, $prefix);
         $this->client = $client;
         $this->container = $container;
@@ -64,7 +68,6 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
         }
         $this->url = $url;
         $this->key = $key;
-        $this->setPathPrefix($prefix);
     }
 
     /**

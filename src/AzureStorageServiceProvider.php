@@ -3,15 +3,10 @@
 namespace Matthewbdaly\LaravelAzureStorage;
 
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Filesystem\Cache;
-use Illuminate\Support\Arr;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
-use League\Flysystem\Cached\CacheInterface;
-use League\Flysystem\Cached\CachedAdapter;
-use League\Flysystem\Cached\Storage\Memory as MemoryStore;
 use League\Flysystem\Filesystem;
-use Matthewbdaly\LaravelAzureStorage\Exceptions\CacheAdapterNotInstalled;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
@@ -35,18 +30,14 @@ final class AzureStorageServiceProvider extends ServiceProvider
                 $config['container'],
                 $config['key'] ?? null,
                 $config['url'] ?? null,
-                $config['prefix'] ?? null
+                $config['prefix'] ?? ''
             );
 
-            if ($cache = Arr::pull($config, 'cache')) {
-                if (!class_exists(CachedAdapter::class)) {
-                    throw new CacheAdapterNotInstalled("Caching requires the league/flysystem-cached-adapter to be installed.");
-                }
-
-                $adapter = new CachedAdapter($adapter, $this->createCacheStore($cache));
-            }
-
-            return new Filesystem($adapter, $config);
+            return new FilesystemAdapter(
+                new Filesystem($adapter, $config),
+                $adapter,
+                $config
+            );
         });
     }
 
@@ -79,28 +70,6 @@ final class AzureStorageServiceProvider extends ServiceProvider
 
             return BlobRestProxy::createBlobService($endpoint, $blobOptions);
         });
-    }
-
-    /**
-     * Create a cache store instance.
-     *
-     * @param  mixed  $config
-     *
-     * @return \League\Flysystem\Cached\CacheInterface
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function createCacheStore($config): CacheInterface
-    {
-        if ($config === true) {
-            return new MemoryStore();
-        }
-
-        return new Cache(
-            $this->app['cache']->store($config['store']),
-            $config['prefix'] ?? 'flysystem',
-            $config['expire'] ?? null
-        );
     }
 
     /**

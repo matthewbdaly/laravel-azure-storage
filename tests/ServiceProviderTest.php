@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
@@ -19,23 +20,22 @@ final class ServiceProviderTest extends TestCase
     public function it_sets_up_the_config_correctly()
     {
         $storage = $this->app['filesystem'];
+
         $settings = $this->app['config']->get('filesystems.disks.azure');
 
         foreach ($settings as $key => $value) {
-            if ($key === 'cache') {
-                continue;
-            }
 
-            $this->assertEquals($value, $storage->getConfig()->get($key));
+            $this->assertEquals($value, Arr::get($storage->getConfig(), $key));
         }
     }
 
-    /** @test */
-    public function it_sets_up_the_cache_adapter_correctly()
-    {
-        $adapter = Storage::getDriver()->getAdapter();
-        $this->assertEquals(\League\Flysystem\Cached\CachedAdapter::class, get_class($adapter));
-    }
+//    /** @test */
+      // skip this test cause it's no longer valid
+//    public function it_sets_up_the_cache_adapter_correctly()
+//    {
+//        $adapter = Storage::getDriver()->getAdapter();
+//        $this->assertEquals(\League\Flysystem\Cached\CachedAdapter::class, get_class($adapter));
+//    }
 
     /** @test */
     public function it_handles_custom_blob_endpoint()

@@ -25,6 +25,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
     {
         Storage::extend('azure', function (Container $app, array $config) {
             $client = $app->make(BlobRestProxy::class, $config);
+            assert($client instanceof BlobRestProxy);
             $adapter = new AzureBlobStorageAdapter(
                 $client,
                 $config['container'],
@@ -50,6 +51,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
     {
         $this->app->bind(BlobRestProxy::class, function (Container $app, array $config) {
             $config = empty($config) ? $app->make('config')->get('filesystems.disks.azure') : $config;
+            assert(is_array($config));
 
             if (!empty($config['connection_string'])) {
                 $endpoint = $config['connection_string'];

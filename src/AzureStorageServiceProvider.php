@@ -15,11 +15,17 @@ use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 /**
  * Service provider for Azure Blob Storage
  *
+ * @psalm-type ProviderRetryConfig = array{
+ *   tries: integer|null,
+ *   interval: integer|null,
+ *   increase: "exponential"|null
+ * }
  * @psalm-type ProviderConfig = array{
  *  endpoint: string|null,
  *  sasToken: string|null,
  *  name: string,
- *  key: string
+ *  key: string,
+ *  retry: ProviderRetryConfig
  * }
  */
 final class AzureStorageServiceProvider extends ServiceProvider
@@ -85,7 +91,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
     /**
      * Create retry middleware instance.
      *
-     * @param  array $config
+     * @param  ProviderRetryConfig $config
      *
      * @return RetryMiddleware
      */
@@ -96,8 +102,8 @@ final class AzureStorageServiceProvider extends ServiceProvider
             $config['tries'] ?? 3,
             $config['interval'] ?? 1000,
             $config['increase'] === 'exponential' ?
-                RetryMiddlewareFactory::EXPONENTIAL_INTERVAL_ACCUMULATION :
-                RetryMiddlewareFactory::LINEAR_INTERVAL_ACCUMULATION,
+            RetryMiddlewareFactory::EXPONENTIAL_INTERVAL_ACCUMULATION :
+            RetryMiddlewareFactory::LINEAR_INTERVAL_ACCUMULATION,
             true  // Whether to retry connection failures too, default false
         );
     }

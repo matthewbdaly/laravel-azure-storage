@@ -7,6 +7,7 @@ use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
+use Matthewbdaly\LaravelAzureStorage\Exceptions\EndpointNotSet;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
@@ -108,7 +109,10 @@ final class AzureStorageServiceProvider extends ServiceProvider
      */
     protected function createConnectionString(array $config): string
     {
-        if (array_key_exists('sasToken', $config)) {
+        if (isset($config['sasToken'])) {
+            if (!isset($config['endpoint'])) {
+                throw new EndpointNotSet("Endpoint not set when using sasToken");
+            }
             return sprintf(
                 'BlobEndpoint=%s;SharedAccessSignature=%s;',
                 $config['endpoint'],

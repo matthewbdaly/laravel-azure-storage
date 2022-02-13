@@ -5,6 +5,7 @@ namespace Matthewbdaly\LaravelAzureStorage;
 use Illuminate\Support\Arr;
 use League\Flysystem\AzureBlobStorage\AzureBlobStorageAdapter as BaseAzureBlobStorageAdapter;
 use Matthewbdaly\LaravelAzureStorage\Exceptions\InvalidCustomUrl;
+use Matthewbdaly\LaravelAzureStorage\Exceptions\KeyNotSet;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\BlobSharedAccessSignatureHelper;
 
@@ -98,7 +99,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     {
         $resourceName = (empty($path) ? $this->container : $this->container  . '/' . $path);
         if (!$this->key) {
-            throw new \Exception("Key not set");
+            throw new KeyNotSet();
         }
         $sas = new BlobSharedAccessSignatureHelper($this->client->getAccountName(), $this->key);
         $sasString = $sas->generateBlobServiceSharedAccessSignatureToken(

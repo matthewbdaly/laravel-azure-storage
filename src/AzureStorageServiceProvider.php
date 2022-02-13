@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
 use Matthewbdaly\LaravelAzureStorage\Exceptions\EndpointNotSet;
+use Matthewbdaly\LaravelAzureStorage\Exceptions\KeyNotSet;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
@@ -127,6 +128,9 @@ final class AzureStorageServiceProvider extends ServiceProvider
                 $config['endpoint'],
                 $config['sasToken']
             );
+        }
+        if (!isset($config['key'])) {
+            throw new KeyNotSet();
         }
         $endpoint = sprintf(
             'DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s;',

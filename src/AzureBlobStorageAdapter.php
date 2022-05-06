@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Matthewbdaly\LaravelAzureStorage;
 
 use Illuminate\Support\Arr;
@@ -52,6 +54,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      * @param string $key
      * @param string|null $url URL.
      * @param string $prefix Prefix.
+     *
      * @throws InvalidCustomUrl URL is not valid.
      */
     public function __construct(
@@ -74,7 +77,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     /**
      * Get the file URL by given path.
      *
-     * @param  string $path Path.
+     * @param string $path Path.
      *
      * @return string
      */

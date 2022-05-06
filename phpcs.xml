@@ -1,8 +1,129 @@
 <?xml version="1.0"?>
 <ruleset name="PHP_CodeSniffer">
 	<description>Coding standard for Microsoft Azure Blob Storage integration.</description>
-	<file>src</file>
-	<arg value="np"/>
-	<rule ref="PSR12"/>
-	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+    <!-- Source files -->
+    <file>src</file>
+
+    <!-- Scan only PHP files -->
+    <arg name="extensions" value="php"/>
+
+    <!-- Show colors in console -->
+    <arg value="-colors"/>
+
+    <!-- Show sniff codes in all reports -->
+    <arg value="ns"/>
+
+    <!-- Set report details level -->
+    <arg name="report" value="full"/>
+
+    <!-- Config -->
+    <ini name="memory_limit" value="128M"/>
+
+    <!-- Use PSR12 as a base -->
+    <rule ref="PSR12"/>
+
+    <!-- Additional rules -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Generic.CodeAnalysis.AssignmentInCondition"/>
+    <rule ref="Generic.CodeAnalysis.EmptyPHPStatement"/>
+    <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="Generic.Commenting.DocComment"/>
+    <rule ref="Generic.Commenting.Fixme"/>
+    <rule ref="Generic.Commenting.Todo"/>
+    <rule ref="Generic.Files.LineLength">
+        <!-- Remove the max-linelength error (default:120 characters) -->
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.Metrics.CyclomaticComplexity"/>
+    <rule ref="Generic.Metrics.NestingLevel"/>
+    <rule ref="Generic.PHP.NoSilencedErrors"/>
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.PHP.Syntax"/>
+    <rule ref="Generic.PHP.DiscourageGoto"/>
+    <rule ref="Generic.PHP.ForbiddenFunctions">
+        <properties>
+            <property name="forbiddenFunctions" type="array">
+                <element key="eval" value="null" />
+                <element key="dd" value="null" />
+                <element key="die" value="null" />
+                <element key="var_dump" value="null" />
+                <element key="sizeof" value="count" />
+                <element key="delete" value="unset" />
+                <element key="print" value="echo" />
+                <element key="create_function" value="null" />
+            </property>
+        </properties>
+    </rule>
+    <rule ref="Generic.VersionControl.GitMergeConflict"/>
+    <rule ref="Squiz.Commenting.DocCommentAlignment"/>
+    <rule ref="Squiz.PHP.CommentedOutCode"/>
+    <rule ref="Squiz.PHP.GlobalKeyword"/>
+    <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
+    <rule ref="SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement"/>
+    <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
+    <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
+    <rule ref="SlevomatCodingStandard.Classes.ClassStructure"/>
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming"/>
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming"/>
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousErrorNaming"/>
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousTraitNaming"/>
+    <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
+    <rule ref="SlevomatCodingStandard.Classes.ClassMemberSpacing">
+        <properties>
+            <property name="linesCountBetweenMembers" value="1" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Classes.MethodSpacing">
+        <properties>
+            <property name="minLinesCount" value="1" />
+            <property name="maxLinesCount" value="1" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Commenting.DeprecatedAnnotationDeclaration"/>
+    <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowContinueWithoutIntegerOperandInSwitch"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
+    <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly"/>
+    <rule ref="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch"/>
+    <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
+    <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
+    <rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue"/>
+    <rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses" />
+    <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
+    <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
+    <rule ref="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators"/>
+    <rule ref="SlevomatCodingStandard.PHP.DisallowReference"/>
+    <rule ref="SlevomatCodingStandard.PHP.RequireExplicitAssertion"/>
+    <rule ref="SlevomatCodingStandard.PHP.RequireNowdoc"/>
+    <rule ref="SlevomatCodingStandard.PHP.UselessParentheses"/>
+    <rule ref="SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking"/>
+    <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHintSpacing"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+        <properties>
+            <property name="declareOnFirstLine" type="boolean" value="false" />
+            <property name="linesCountBeforeDeclare" value="1" />
+            <property name="linesCountAfterDeclare" value="1" />
+            <property name="spacesCountAroundEqualsSign" value="0" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable"/>
+    <rule ref="SlevomatCodingStandard.Variables.DuplicateAssignmentToVariable"/>
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
+    <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
 </ruleset>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Matthewbdaly\LaravelAzureStorage;
 
 use Illuminate\Contracts\Container\Container;
@@ -83,8 +85,8 @@ final class AzureStorageServiceProvider extends ServiceProvider
             if (isset($retry)) {
                 $blobOptions = [
                     'middlewares' => [
-                        $this->createRetryMiddleware($retry)
-                    ]
+                        $this->createRetryMiddleware($retry),
+                    ],
                 ];
             }
 
@@ -95,7 +97,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
     /**
      * Create retry middleware instance.
      *
-     * @param  ProviderRetryConfig $config
+     * @param ProviderRetryConfig $config
      *
      * @return RetryMiddleware
      */

@@ -106,19 +106,19 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
         }
         $sas = new BlobSharedAccessSignatureHelper($this->client->getAccountName(), $this->key);
         $sasString = $sas->generateBlobServiceSharedAccessSignatureToken(
-            Arr::get($options, 'signed_resource', 'b'),
+            (string)Arr::get($options, 'signed_resource', 'b'),
             $resourceName,
-            Arr::get($options, 'signed_permissions', 'r'),
+            (string)Arr::get($options, 'signed_permissions', 'r'),
             $ttl,
             Arr::get($options, 'signed_start', ''),
-            Arr::get($options, 'signed_ip', ''),
-            Arr::get($options, 'signed_protocol', 'https'),
-            Arr::get($options, 'signed_identifier', ''),
-            Arr::get($options, 'cache_control', ''),
-            Arr::get($options, 'content_disposition', ''),
-            Arr::get($options, 'content_encoding', ''),
-            Arr::get($options, 'content_language', ''),
-            Arr::get($options, 'content_type', '')
+            (string)Arr::get($options, 'signed_ip', ''),
+            (string)Arr::get($options, 'signed_protocol', 'https'),
+            (string)Arr::get($options, 'signed_identifier', ''),
+            (string)Arr::get($options, 'cache_control', ''),
+            (string)Arr::get($options, 'content_disposition', ''),
+            (string)Arr::get($options, 'content_encoding', ''),
+            (string)Arr::get($options, 'content_language', ''),
+            (string)Arr::get($options, 'content_type', '')
         );
 
         return sprintf('%s?%s', $this->getUrl($path), $sasString);

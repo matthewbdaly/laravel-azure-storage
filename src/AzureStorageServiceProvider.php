@@ -80,7 +80,6 @@ final class AzureStorageServiceProvider extends ServiceProvider
                 $endpoint = $this->createConnectionString($config);
             }
 
-
             $blobOptions = [];
             $retry = data_get($config, 'retry');
             if (isset($retry)) {
@@ -103,7 +102,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
      *
      * @return RetryMiddleware
      */
-    protected function createRetryMiddleware(array $config): RetryMiddleware
+    private function createRetryMiddleware(array $config): RetryMiddleware
     {
         return RetryMiddlewareFactory::create(
             RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
@@ -121,7 +120,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
      *
      * @psalm-param ProviderConfig $config
      */
-    protected function createConnectionString(array $config): string
+    private function createConnectionString(array $config): string
     {
         if (isset($config['sasToken'])) {
             if (!isset($config['endpoint'])) {

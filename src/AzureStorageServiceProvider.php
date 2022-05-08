@@ -48,10 +48,10 @@ final class AzureStorageServiceProvider extends ServiceProvider
             assert($client instanceof BlobRestProxy);
             $adapter = new AzureBlobStorageAdapter(
                 $client,
-                $config['container'],
-                $config['key'] ?? null,
-                $config['url'] ?? null,
-                $config['prefix'] ?? ''
+                (string)$config['container'],
+                isset($config['key']) ? (string)$config['key'] : null,
+                isset($config['url']) ? (string)$config['url'] : null,
+                isset($config['prefix']) ? (string)$config['url'] : 'prefix',
             );
 
             return new FilesystemAdapter(

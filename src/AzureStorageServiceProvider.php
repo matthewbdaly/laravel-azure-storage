@@ -84,6 +84,9 @@ final class AzureStorageServiceProvider extends ServiceProvider
             $retry = data_get($config, 'retry');
             if (isset($retry)) {
                 assert(is_array($retry));
+                assert(is_null($retry['tries']) || is_int($retry['tries']));
+                assert(is_null($retry['interval']) || is_int($retry['interval']));
+                assert(is_null($retry['increase']) || is_string($retry['increase']));
                 $blobOptions = [
                     'middlewares' => [
                         $this->createRetryMiddleware($retry),

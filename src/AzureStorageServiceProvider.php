@@ -70,11 +70,12 @@ final class AzureStorageServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(BlobRestProxy::class, function (Container $app, array $config) {
-            $config = empty($config) ? $app->make('config')->get('filesystems.disks.azure') : $config;
-            assert(is_array($config));
+            $configObject = $app->make('config');
+            assert($configObject instanceof \Illuminate\Contracts\Config\Repository);
+            $config = empty($config) ? (array)$configObject->get('filesystems.disks.azure') : $config;
 
             if (!empty($config['connection_string'])) {
-                $endpoint = $config['connection_string'];
+                $endpoint = (string)$config['connection_string'];
             } else {
                 $endpoint = $this->createConnectionString($config);
             }

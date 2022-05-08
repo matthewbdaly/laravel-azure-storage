@@ -110,7 +110,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
             $resourceName,
             (string)Arr::get($options, 'signed_permissions', 'r'),
             $ttl,
-            Arr::get($options, 'signed_start', ''),
+            (string)Arr::get($options, 'signed_start', ''),
             (string)Arr::get($options, 'signed_ip', ''),
             (string)Arr::get($options, 'signed_protocol', 'https'),
             (string)Arr::get($options, 'signed_identifier', ''),

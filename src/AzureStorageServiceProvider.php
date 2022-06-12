@@ -73,6 +73,7 @@ final class AzureStorageServiceProvider extends ServiceProvider
             $configObject = $app->make('config');
             assert($configObject instanceof \Illuminate\Contracts\Config\Repository);
             $config = empty($config) ? (array)$configObject->get('filesystems.disks.azure') : $config;
+            /** @var ProviderConfig $config */
 
             if (!empty($config['connection_string'])) {
                 $endpoint = (string)$config['connection_string'];

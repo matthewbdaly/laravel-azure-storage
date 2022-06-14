@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+# Please ensure you complete this checklist *in full*. If you fail to do so, you're wasting my time and I *will* reserve to right to close the issue without looking
+
 **Checklist**
 
 This package is just a wrapper for Flysystem's Azure storage backend to integrate it with Laravel's storage API. As such, many problems users may experience with it may actually be issues with Flysystem, the Azure driver for Flysystem, or Microsoft's PHP SDK. To help eliminate these issues, please confirm the following:

@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+# Please ensure you complete this checklist *in full*. If you fail to do so, you're wasting my time and I will reserve to right to close the issue without looking
+
 **Checklist**
 
 Because this project is:

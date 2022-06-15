@@ -105,7 +105,6 @@
     <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
     <rule ref="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators"/>
     <rule ref="SlevomatCodingStandard.PHP.DisallowReference"/>
-    <rule ref="SlevomatCodingStandard.PHP.RequireExplicitAssertion"/>
     <rule ref="SlevomatCodingStandard.PHP.RequireNowdoc"/>
     <rule ref="SlevomatCodingStandard.PHP.UselessParentheses"/>
     <rule ref="SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking"/>

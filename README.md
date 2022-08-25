@@ -84,3 +84,9 @@ To enable the retry middewalre, add a `retry` directive to the disk's configurat
 This package is supported on the current Laravel LTS version, and any later versions. If you are using an older Laravel version, it may work, but I offer no guarantees, nor will I accept pull requests to add this support.
 
 By extension, as the current Laravel LTS version required PHP 7.0 or greater, I don't test it against PHP < 7, nor will I accept any pull requests to add this support.
+
+# Can you add support for storage backend X?
+
+No. This is *exclusively* for Azure Blob storage, and I am categorically not interested in expanding the scope of it to support other backends.
+
+As long as Flysystem supports it, you can roll your own Laravel filesystem driver easily as described at https://laravel.com/docs/9.x/filesystem#custom-filesystems if you need to - this is the method I used to build this package.

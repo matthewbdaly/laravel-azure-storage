@@ -18,7 +18,7 @@ This package is just a wrapper for Flysystem's Azure storage backend to integrat
 - [ ] I can instantiate the Microsoft Azure PHP SDK successfully and can interact with my file successfully using that
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+A clear and concise description of what the bug is. If it throws an exception, please provide a full stack trace.
 
 **To Reproduce**
 Steps to reproduce the behavior:

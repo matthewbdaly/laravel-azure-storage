@@ -4,6 +4,7 @@
 
     <!-- Source files -->
     <file>src</file>
+    <file>tests</file>
 
     <!-- Scan only PHP files -->
     <arg name="extensions" value="php"/>

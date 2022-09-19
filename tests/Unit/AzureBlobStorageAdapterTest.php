@@ -26,13 +26,13 @@ it('supports preceding slash', function (): void {
 
 it('supports custom URL', function (): void {
     $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
-    $adapter = new AzureBlobStorageAdapter($client, 'azure_container','azure_key', 'https://example.com');
+    $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'azure_key', 'https://example.com');
     $this->assertEquals('https://example.com/azure_container/test.txt', $adapter->getUrl('test.txt'));
 });
 
 it('supports custom URL with root container', function (): void {
     $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
-    $adapter = new AzureBlobStorageAdapter($client, '$root','azure_key', 'https://example.com');
+    $adapter = new AzureBlobStorageAdapter($client, '$root', 'azure_key', 'https://example.com');
     $this->assertEquals('https://example.com/test.txt', $adapter->getUrl('test.txt'));
 });
 
@@ -47,18 +47,18 @@ it('supports temporary URL', function (): void {
 it('handles invalid custom URL', function (): void {
     $this->expectException('Matthewbdaly\LaravelAzureStorage\Exceptions\InvalidCustomUrl');
     $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
-    $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'azure_key','foo');
+    $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'azure_key', 'foo');
     $this->assertInstanceOf(AzureBlobStorageAdapter::class, $adapter);
 });
 
 it('handles custom prefix', function (): void {
     $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
-    $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'azure_key',null, 'test_path');
+    $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'azure_key', null, 'test_path');
     $this->assertEquals('https://azure_account.blob.core.windows.net/azure_container/test_path/test.txt', $adapter->getUrl('test_path/test.txt'));
 });
 
 it('includes the prefix in the return URL', function (): void {
     $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
-    $adapter = new AzureBlobStorageAdapter($client, 'container','azure_key', 'https://example.com', 'my_prefix');
+    $adapter = new AzureBlobStorageAdapter($client, 'container', 'azure_key', 'https://example.com', 'my_prefix');
     $this->assertEquals('https://example.com/container/my_prefix/test.txt', $adapter->getUrl('test.txt'));
 });

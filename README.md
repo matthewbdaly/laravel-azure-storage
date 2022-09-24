@@ -17,8 +17,8 @@ composer require matthewbdaly/laravel-azure-storage
 Then add this to the `disks` section of `config/filesystems.php`:
 
 ```php
-        'azure' => [
-            'driver'    => 'azure',
+        'azure' => [ // NB This need not be set to "azure", because it's just the name of the connection - feel free to call it what you want, or even set up multiple blobs with different names
+            'driver'    => 'azure', // As this is the name of the driver, this MUST be set to "azure"
             'name'      => env('AZURE_STORAGE_NAME'),
             'key'       => env('AZURE_STORAGE_KEY'),
             'container' => env('AZURE_STORAGE_CONTAINER'),

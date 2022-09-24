@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\Unit;
+
 use Illuminate\Filesystem\FilesystemManager;
 use Matthewbdaly\LaravelAzureStorage\AzureBlobStorageAdapter;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;

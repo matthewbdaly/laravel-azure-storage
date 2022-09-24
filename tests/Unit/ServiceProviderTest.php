@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\Unit;
+
 use Illuminate\Config\Repository;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Arr;

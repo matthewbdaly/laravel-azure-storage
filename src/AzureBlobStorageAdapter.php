@@ -47,20 +47,12 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     private $key;
 
     /**
-     * The prefix for the adapter
-     *
-     * @var string
-     */
-    private string $prefix;
-
-    /**
      * Create a new AzureBlobStorageAdapter instance.
      *
      * @param \MicrosoftAzure\Storage\Blob\BlobRestProxy $client Client.
      * @param string $container Container.
      * @param string $key
      * @param string|null $url URL.
-     * @param string $prefix Prefix.
      *
      * @throws InvalidCustomUrl URL is not valid.
      */
@@ -69,9 +61,8 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
         string $container,
         string $key = null,
         string $url = null,
-        string $prefix = ''
     ) {
-        parent::__construct($client, $container, $prefix);
+        parent::__construct($client, $container);
         $this->client = $client;
         $this->container = $container;
         if ($url && !filter_var($url, FILTER_VALIDATE_URL)) {
@@ -79,7 +70,6 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
         }
         $this->url = $url;
         $this->key = $key;
-        $this->prefix = $prefix;
     }
 
     /**
@@ -92,7 +82,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
     public function getUrl(string $path)
     {
         if ($this->url) {
-            return rtrim($this->url, '/') . '/' . ($this->container === '$root' ? '' : $this->container . '/') . ($this->prefix ? $this->prefix . '/' : '') . ltrim($path, '/');
+            return rtrim($this->url, '/') . '/' . ($this->container === '$root' ? '' : $this->container . '/') . ltrim($path, '/');
         }
         return $this->client->getBlobUrl($this->container, $path);
     }

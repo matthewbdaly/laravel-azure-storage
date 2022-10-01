@@ -58,9 +58,3 @@ it('handles custom prefix', function (): void {
     $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'azure_key', null, 'test_path');
     $this->assertEquals('https://azure_account.blob.core.windows.net/azure_container/test_path/test.txt', $adapter->getUrl('test_path/test.txt'));
 });
-
-it('includes the prefix in the return URL', function (): void {
-    $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
-    $adapter = new AzureBlobStorageAdapter($client, 'container', 'azure_key', 'https://example.com', 'my_prefix');
-    $this->assertEquals('https://example.com/container/my_prefix/test.txt', $adapter->getUrl('test.txt'));
-});

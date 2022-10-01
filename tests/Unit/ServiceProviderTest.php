@@ -71,3 +71,17 @@ it('sets up the retry middleware', function (): void {
 
     $this->assertTrue($this->app->resolved(BlobRestProxy::class));
 });
+
+it('includes the prefix in the return URL', function (): void {
+    $endpoint = 'http://custom';
+    $customUrl = 'http://cdn.com';
+    $prefix = 'my_prefix';
+    assert($this->app['config'] instanceof Repository);
+    $container = $this->app['config']->get('filesystems.disks.azure.container');
+    assert(is_string($container));
+    $this->app['config']->set('filesystems.disks.azure.endpoint', $endpoint);
+    $this->app['config']->set('filesystems.disks.azure.url', $customUrl);
+    $this->app['config']->set('filesystems.disks.azure.prefix', $prefix);
+
+    $this->assertEquals("$customUrl/$container/$prefix/a.txt", Storage::url('a.txt'));
+});

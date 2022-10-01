@@ -14,11 +14,25 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+      - restore_cache:
+        keys:
+          - v1-dependencies-
       - run:
-          command: "composer install"
-          command: "vendor/bin/phpcs"
-          command: "vendor/bin/psalm"
-          command: "vendor/bin/pest"
+        name: "Install dependencies"
+        command: "composer install"
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+      - run:
+        name: "Run Codesniffer"
+        command: "vendor/bin/phpcs"
+      - run:
+        name: "Run Psalm"
+        command: "vendor/bin/psalm"
+      - run:
+        name: "Run Pest"
+        command: "vendor/bin/pest"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

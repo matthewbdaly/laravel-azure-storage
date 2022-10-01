@@ -1,6 +1,4 @@
 # laravel-azure-storage
-[![Build Status](https://travis-ci.org/matthewbdaly/laravel-azure-storage.svg?branch=master)](https://travis-ci.org/matthewbdaly/laravel-azure-storage)
-[![Coverage Status](https://coveralls.io/repos/github/matthewbdaly/laravel-azure-storage/badge.svg?branch=master)](https://coveralls.io/github/matthewbdaly/laravel-azure-storage?branch=master)
 
 Microsoft Azure Blob Storage integration for Laravel's Storage API.
 

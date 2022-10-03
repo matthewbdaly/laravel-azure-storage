@@ -8,6 +8,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Matthewbdaly\LaravelAzureStorage\Exceptions\EndpointNotSet;
 use Matthewbdaly\LaravelAzureStorage\Exceptions\KeyNotSet;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
@@ -82,3 +83,15 @@ it('throws an error if key not set', function (): void {
     $this->app['config']->set('filesystems.disks.azure.key', null);
     $this->app->get(BlobRestProxy::class);
 })->throws(KeyNotSet::class);
+
+it('throws an error if endpoint not set when using sasToken', function (): void {
+    $this->app['config']->set('filesystems.disks.azure.endpoint', null);
+    $this->app['config']->set('filesystems.disks.azure.sasToken', 'foo');
+    $this->app->get(BlobRestProxy::class);
+})->throws(EndpointNotSet::class);
+
+it('allows using sasToken', function (): void {
+    $this->app['config']->set('filesystems.disks.azure.endpoint', 'https://example.com');
+    $this->app['config']->set('filesystems.disks.azure.sasToken', 'foo');
+    $this->assertNotNull($this->app->get(BlobRestProxy::class));
+});

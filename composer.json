@@ -7,7 +7,7 @@
         "league/flysystem-azure-blob-storage": "^3.0"
     },
     "require-dev": {
-        "infection/infection": "^0.26.11",
+        "infection/infection": "^0.26.15",
         "mockery/mockery": "^1.4",
         "orchestra/testbench": "^7.0",
         "pestphp/pest": "^1.22",

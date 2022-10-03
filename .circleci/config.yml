@@ -15,11 +15,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install PCOV"
-          command: |
-            sudo pecl install pcov
-            sudo docker-php-ext-enable pcov
-      - run:
           name: "Install dependencies"
           command: "composer install"
       - run:
@@ -31,9 +26,6 @@ jobs:
       - run:
           name: "Run Pest"
           command: "vendor/bin/pest"
-      - run:
-          name: "Run Infection"
-          command: "vendor/bin/infection --test-framework=pest --show-mutations"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

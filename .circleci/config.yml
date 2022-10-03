@@ -15,6 +15,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Install PCOV"
+          command: |
+            sudo pecl install pcov
+            sudo docker-php-ext-enable pcov
+      - run:
           name: "Install dependencies"
           command: "composer install"
       - run:

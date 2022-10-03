@@ -71,3 +71,8 @@ it('sets up the retry middleware', function (): void {
 
     $this->assertTrue($this->app->resolved(BlobRestProxy::class));
 });
+
+it('handles a connection string', function (): void {
+    $this->app['config']->set('filesystems.disks.azure.connection_string', 'DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;');
+    $this->assertNotNull($this->app->get(BlobRestProxy::class));
+});

@@ -8,6 +8,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Matthewbdaly\LaravelAzureStorage\Exceptions\KeyNotSet;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
 it('sets up the storage correctly', function (): void {
@@ -76,3 +77,8 @@ it('handles a connection string', function (): void {
     $this->app['config']->set('filesystems.disks.azure.connection_string', 'DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;');
     $this->assertNotNull($this->app->get(BlobRestProxy::class));
 });
+
+it('throws an error if key not set', function (): void {
+    $this->app['config']->set('filesystems.disks.azure.key', null);
+    $this->app->get(BlobRestProxy::class);
+})->throws(KeyNotSet::class);

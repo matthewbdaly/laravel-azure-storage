@@ -57,7 +57,7 @@ it('handles invalid custom URL', function (): void {
 it('throws an error if key missing when creating temporary URL', function (): void {
     $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
     $adapter = new AzureBlobStorageAdapter($client, 'azure_container', null, null, 'test_path');
-    $tempUrl = $adapter->getTemporaryUrl('test_path/test.txt', now()->addMinutes(1));
+    $adapter->getTemporaryUrl('test_path/test.txt', now()->addMinutes(1));
 })->throws(KeyNotSet::class);
 
 it('handles custom prefix', function (): void {

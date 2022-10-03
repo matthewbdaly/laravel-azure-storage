@@ -6,6 +6,7 @@ namespace Tests\Unit;
 
 use Illuminate\Filesystem\FilesystemManager;
 use Matthewbdaly\LaravelAzureStorage\AzureBlobStorageAdapter;
+use Matthewbdaly\LaravelAzureStorage\Exceptions\KeyNotSet;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
 it('correctly generates the file URL', function (): void {
@@ -52,6 +53,12 @@ it('handles invalid custom URL', function (): void {
     $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'azure_key', 'foo');
     $this->assertInstanceOf(AzureBlobStorageAdapter::class, $adapter);
 });
+
+it('throws an error if key missing when creating temporary URL', function (): void {
+    $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
+    $adapter = new AzureBlobStorageAdapter($client, 'azure_container', null, null, 'test_path');
+    $tempUrl = $adapter->getTemporaryUrl('test_path/test.txt', now()->addMinutes(1));
+})->throws(KeyNotSet::class);
 
 it('handles custom prefix', function (): void {
     $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));

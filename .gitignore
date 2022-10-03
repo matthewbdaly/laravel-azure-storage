@@ -6,3 +6,4 @@ build/
 infection-log.txt
 /.idea
 .phpunit.result.cache
+infection.html

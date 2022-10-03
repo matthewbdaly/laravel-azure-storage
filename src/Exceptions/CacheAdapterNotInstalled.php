@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Matthewbdaly\LaravelAzureStorage\Exceptions;
 
 /**
- * Invalid custom URL
+ * Cache adapter not installed
  */
 final class CacheAdapterNotInstalled extends \Exception
 {

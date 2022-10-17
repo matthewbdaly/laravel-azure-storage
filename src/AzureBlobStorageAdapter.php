@@ -108,6 +108,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      */
     public function getTemporaryUrl(string $path, $ttl, array $options = [])
     {
+        $path = $this->prefix ? $this->prefix . '/' . $path : $path;
         $resourceName = (empty($path) ? $this->container : $this->container  . '/' . $path);
         if (!$this->key) {
             throw new KeyNotSet();

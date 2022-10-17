@@ -39,11 +39,19 @@ it('supports custom URL with root container', function (): void {
     $this->assertEquals('https://example.com/test.txt', $adapter->getUrl('test.txt'));
 });
 
-it('supports temporary URL', function (): void {
+it('supports temporary URL without prefix', function (): void {
     $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
-    $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'azure_key', null, 'test_path');
+    $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'azure_key', null, '');
     $tempUrl = $adapter->getTemporaryUrl('test_path/test.txt', now()->addMinutes(1));
     $this->assertStringStartsWith('https://azure_account.blob.core.windows.net/azure_container/test_path/test.txt', $tempUrl);
+    $this->assertStringContainsString('sig=', $tempUrl);
+});
+
+it('supports temporary URL with prefix', function (): void {
+    $client = BlobRestProxy::createBlobService('DefaultEndpointsProtocol=https;AccountName=azure_account;AccountKey=' . base64_encode('azure_key'));
+    $adapter = new AzureBlobStorageAdapter($client, 'azure_container', 'azure_key', null, 'test_prefix');
+    $tempUrl = $adapter->getTemporaryUrl('test_path/test.txt', now()->addMinutes(1));
+    $this->assertStringStartsWith('https://azure_account.blob.core.windows.net/azure_container/test_prefix/test_path/test.txt', $tempUrl);
     $this->assertStringContainsString('sig=', $tempUrl);
 });
 

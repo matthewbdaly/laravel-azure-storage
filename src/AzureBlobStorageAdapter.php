@@ -101,7 +101,7 @@ final class AzureBlobStorageAdapter extends BaseAzureBlobStorageAdapter
      * Generate Temporary Url with SAS query
      *
      * @param string $path
-     * @param \Datetime|string $ttl
+     * @param \DateTime|string $ttl
      * @param array $options
      *
      * @return string

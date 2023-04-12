@@ -1,3 +1,11 @@
+## DEPRECATION NOTICE
+
+This package is dependent on Flysystem's Azure Blob Storage integration. The creator of that has announced that because Microsoft are dropping support for their PHP storage client, he will also be dropping Azure support from Flysystem in 2024.
+
+As a result, there is no viable path for me to continue to maintain this package past that point. It will therefore be deprecated at the same time.
+
+If you're currently using this package on a project, I suggest you begin considering alternatives to Azure that are officially supported by Laravel, such as Amazon S3.
+
 # laravel-azure-storage
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/matthewbdaly/laravel-azure-storage/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/matthewbdaly/laravel-azure-storage/tree/master)
 

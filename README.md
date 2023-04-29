@@ -86,6 +86,14 @@ To enable the retry middewalre, add a `retry` directive to the disk's configurat
         ],
 ```
 
+# Unsupported features
+
+As this package uses the Flysystem Azure integration, it shares the following limitations with that:
+
+* Visibility setting or retrieving is not supported.
+* Mimetypes are always resolved, where others do not.
+* Directory creation is not supported in any way.
+
 # Support policy
 
 This package is supported on the current Laravel LTS version, and any later versions. If you are using an older Laravel version, it may work, but I offer no guarantees, nor will I accept pull requests to add this support.

@@ -4,7 +4,7 @@ This package is dependent on Flysystem's Azure Blob Storage integration. The cre
 
 As a result, there is no viable path for me to continue to maintain this package past that point. In addition, I myself have never actually had the need to use this package and only maintained it for reasons of inertia. It's therefore deprecated as of March 2024.
 
-There is a [project to maintain a fork of the original Microsoft PHP SDK](https://github.com/Azure-OSS/azure-storage-php). While this is not a drop-in replacement for this package as it does not at this time provide a replacement for the Flysystem driver or this abstraction on top of that, if you're planning to continue using Azure with Laravel, that is probably the best place to start.
+There is now a maintained replacement available at [https://github.com/Azure-OSS/azure-storage-php-adapter-laravel](https://github.com/Azure-OSS/azure-storage-php-adapter-laravel), which should be a straightforward switch.
 
 ## Microsoft Azure Blob Storage integration for Laravel's Storage API.
 
